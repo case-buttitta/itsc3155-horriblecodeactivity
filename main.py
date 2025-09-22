@@ -11,8 +11,8 @@ class Game():
     #function to make player move, checking if possible forst or if proposed position is on the board
     def play(self,move):
         positions = move.split(",")
-        adjusted_positions = [int(n) for n in positions]
-        place = self.board[adjusted_positions[0]-1][adjusted_positions[1]-1]
+        adjusted_positions = [int(n) - 1 for n in positions]
+        place = self.board[adjusted_positions[0]][adjusted_positions[1]]
         if adjusted_positions[0] > 3 or adjusted_positions[1] > 3 or place != " ":
             print("Can't play there, pick another area")
             return False
@@ -22,8 +22,9 @@ class Game():
     def respond(self):
         while True:
             random_index = [random.randrange(self.dimension),random.randrange(self.dimension)]
-            if self.board[random_index[0]][random_index[1]] == " ":
-                self.board[random_index[0]][random_index[1]] = 'O'
+            random_place = self.board[random_index[0]][random_index[1]]
+            if random_place  == " ":
+                random_place = 'O'
                 break
         if self.validate("X") or self.validate("O"):
             self.playing = False
